@@ -1,0 +1,5 @@
+__pycache__
+apps/account/migrations
+apps/product/migrations
+.flake8
+*.in
