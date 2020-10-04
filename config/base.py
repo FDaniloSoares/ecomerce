@@ -1,16 +1,15 @@
-from datetime import timedelta
 import os
+
 import environ
 
 env = environ.Env()
 
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-APP_DIRS = os.path.join(BASE_DIR, 'apps')
-env.read_env(os.path.join(BASE_DIR, '.envs/.django'))
-env.read_env(os.path.join(BASE_DIR, '.envs/.postgres'))
+APP_DIRS = os.path.join(BASE_DIR, "apps")
+env.read_env(os.path.join(BASE_DIR, ".envs/.django"))
+env.read_env(os.path.join(BASE_DIR, ".envs/.postgres"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -21,7 +20,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=['localhost', '127.0.0.1'])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 
 
 # Application definition
@@ -81,22 +80,30 @@ TEMPLATES = [
 
 # Database
 DATABASES = {
-        "default": {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': env("POSTGRES_DB"),
-            'USER': env("POSTGRES_USER"),
-            'PASSWORD': env("POSTGRES_PASSWORD"),
-            'HOST': env("POSTGRES_HOST"),
-            'PORT': env("POSTGRES_PORT"),
-        }
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": env("POSTGRES_DB"),
+        "USER": env("POSTGRES_USER"),
+        "PASSWORD": env("POSTGRES_PASSWORD"),
+        "HOST": env("POSTGRES_HOST"),
+        "PORT": env("POSTGRES_PORT"),
+    }
 }
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator", },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -137,7 +144,12 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 12,
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
 }
 
 
-CORS_ORIGIN_WHITELIST = env.list("CORS_WHITELIST", default=['http://localhost:4200'])
+CORS_ORIGIN_WHITELIST = env.list("CORS_WHITELIST", default=["http://localhost:4200"])

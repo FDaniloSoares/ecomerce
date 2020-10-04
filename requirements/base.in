@@ -1,0 +1,7 @@
+django==3.0.10
+djangorestframework
+django-filter
+django-cors-headers
+django-environ
+psycopg2-binary
+whitenoise
