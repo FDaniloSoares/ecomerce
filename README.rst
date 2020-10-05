@@ -14,3 +14,5 @@ Basic Comands
   See the development version in:
     - https://127.0.0.1:8000
 
+Test Comands
+  docker-compose run --rm pytest
