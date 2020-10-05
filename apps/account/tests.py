@@ -1,8 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
 
-from apps.account.models import User
+User = get_user_model()
 
 
 class AccountTests(APITestCase):
@@ -14,3 +16,4 @@ class AccountTests(APITestCase):
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.get().name, data["name"])
         self.assertEqual(User.objects.get().username, data["username"])
+        self.assertTrue(Token.objects.get(user__username=data["username"]))

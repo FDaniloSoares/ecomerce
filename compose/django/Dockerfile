@@ -19,9 +19,14 @@ COPY ./requirements /requirements
 RUN pip install -r /requirements/base.txt
 RUN pip install -r /requirements/local.txt
 
+COPY ./compose/django/entrypoint /entrypoint
+RUN sed -i 's/\r$//g' /entrypoint
+RUN chmod +x /entrypoint
+
 COPY ./compose/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
 WORKDIR /app
 
+ENTRYPOINT ["/entrypoint"]
